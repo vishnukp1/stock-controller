@@ -71,7 +71,6 @@ const searchStock = async (req, res) => {
 
   const users = await stockSchema.find({ name: { $regex: regex } });
 
-
   res.json(users);
 };
 
