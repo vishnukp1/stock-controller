@@ -3,6 +3,13 @@ const app = express();
 const mongoose = require("mongoose");
 const stockRouter = require("./src/routes/stockRoutes")
 const morgan = require("morgan")
+const cors = require("cors");
+
+app.use(cors({
+  origin: "http://127.0.0.1:5500", // Your front-end origin
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true, // If cookies or authorization headers are required
+}));
 
 app.use(express.json())
 
@@ -20,7 +27,7 @@ mongoose
   });
 app.use("/",stockRouter)
   
-const port = 3001;
+const port = 5000;
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
