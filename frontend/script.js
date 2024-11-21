@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:5000"; // Replace with your backend URL
+const baseUrl = "http://localhost:5000";
 
 const stockForm = document.getElementById("stockForm");
 const stockTable = document.querySelector("#stockTable tbody");
@@ -9,8 +9,9 @@ const searchResults = document.getElementById("searchResults");
 async function fetchStocks() {
   const response = await fetch(`${baseUrl}/stock`);
   const data = await response.json();
-
-  stockTable.innerHTML = data.data.map((stock) => `
+  stockTable.innerHTML = data.data
+    .map(
+      (stock) => `
     <tr>
       <td>${stock._id}</td>
       <td>${stock.name}</td>
@@ -21,7 +22,9 @@ async function fetchStocks() {
         <button onclick="updateStock('${stock._id}')">Update</button>
       </td>
     </tr>
-  `).join("");
+  `
+    )
+    .join("");
 }
 
 stockForm.addEventListener("submit", async (event) => {
@@ -55,14 +58,11 @@ stockForm.addEventListener("submit", async (event) => {
   }
 });
 
-
-// Delete Stock
 async function deleteStock(id) {
   await fetch(`${baseUrl}/stock/${id}`, { method: "DELETE" });
   fetchStocks();
 }
 
-// Update Stock (Basic Example)
 async function updateStock(id) {
   const name = prompt("Enter new name");
   const price = prompt("Enter new price");
@@ -78,16 +78,18 @@ async function updateStock(id) {
   }
 }
 
-// Search Stock
 searchBtn.addEventListener("click", async () => {
   const name = searchInput.value;
   const response = await fetch(`${baseUrl}/searchstock?name=${name}`);
   const data = await response.json();
 
-  searchResults.innerHTML = data.map((stock) => `
+  searchResults.innerHTML = data
+    .map(
+      (stock) => `
     <li>${stock.name} - ${stock.price} - ${stock.category}</li>
-  `).join("");
+  `
+    )
+    .join("");
 });
 
-// Initialize
 fetchStocks();
