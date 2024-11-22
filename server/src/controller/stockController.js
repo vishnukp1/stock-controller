@@ -19,7 +19,6 @@ const createStock = async (req, res) => {
   await stock.save();
 
   console.log(stock);
-  
 
   res.status(200).json({
     message: "Successfully stock added",
